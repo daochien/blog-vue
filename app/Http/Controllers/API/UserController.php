@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::latest()->paginate(10);
     }
 
     /**
@@ -39,7 +39,8 @@ class UserController extends Controller
             'email' => $request->email,
             'bio' => $request->bio,
             'type' => $request->type,
-            'photo' => 'profile.png'
+            'photo' => 'profile.png',
+            'password' => Hash::make($request->password)
         ]);
         if($user->id){
             return response()->json([
