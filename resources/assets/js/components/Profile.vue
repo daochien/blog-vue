@@ -61,26 +61,19 @@
                         <div class="tab-pane active show" id="settings">
                             <form class="form-horizontal">
                                 <div class="form-group">
-                                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+                                    <label for="name" class="col-sm-2 control-label">Name</label>
 
                                     <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                        <input type="text" v-model="form.name" class="form-control" id="name" placeholder="Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                                    <label for="email" class="col-sm-2 control-label">Email</label>
 
                                     <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="email" v-model="form.email" class="form-control" id="email" placeholder="Email">
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputName2" class="col-sm-2 control-label">Name</label>
-
-                                    <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                                    </div>
-                                </div>
+                                </div>                                
                                 <div class="form-group">
                                     <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
 
@@ -122,6 +115,26 @@
 
 <script>
     export default {
+        data(){
+            return {                
+                form: new Form({
+                    id: '',
+                    name: '',
+                    email: '',
+                    password: '',
+                    type: '',
+                    bio: '',
+                    photo: '',
+                })
+            }
+        },
+        created(){
+            axios.get('api/profile').then( (response) => {
+                this.form.fill(response.data);
+            }).catch( (error) => {
+                console.log(error);
+            });
+        },
         mounted() {
             console.log('Component mounted.')
         }

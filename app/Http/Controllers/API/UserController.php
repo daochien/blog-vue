@@ -112,4 +112,8 @@ class UserController extends Controller
             'msg' => 'delete user successfully!'
         ]);
     }
+
+    public function profile(){
+        return auth('api')->user();        
+    }
 }
